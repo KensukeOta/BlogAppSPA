@@ -2,8 +2,8 @@
   <section>
     <h1>Login</h1>
     <form @submit.prevent="submit">
-      <p v-if="errors.email">{{ errors.email[0] }}</p>
-      <p v-if="errors.password">{{ errors.password[0] }}</p>
+      <p class="error" v-if="errors.email">{{ errors.email[0] }}</p>
+      <p class="error" v-if="errors.password">{{ errors.password[0] }}</p>
       <div>
         <label for="email">email</label>
         <input type="text" id="email" v-model="email" />
@@ -45,3 +45,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.error {
+  color: red;
+}
+</style>
