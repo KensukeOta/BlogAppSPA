@@ -2,6 +2,8 @@
   <section>
     <h1>Login</h1>
     <form @submit.prevent="submit">
+      <p v-if="errors.email">{{ errors.email[0] }}</p>
+      <p v-if="errors.password">{{ errors.password[0] }}</p>
       <div>
         <label for="email">email</label>
         <input type="text" id="email" v-model="email" />
@@ -20,13 +22,14 @@ export default {
   data () {
     return {
       email: '',
-      password: ''
-    }
+      password: '',
+      errors: [],
+    };
   },
   methods: {
     async submit () {
       this.$axios.$get('/sanctum/csrf-cookie').then(response => {
-        this.$axios.$post('/api/login', {
+        this.$axios.post('/api/login', {
           email: this.email,
           password: this.password
         })
@@ -35,7 +38,7 @@ export default {
           this.$router.push('/about');
         })
         .catch(error => {
-          console.log(error);
+          this.errors = error.response.data.errors;
         });
       });
     }
