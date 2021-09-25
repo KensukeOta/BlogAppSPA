@@ -32,7 +32,7 @@ class LoginController extends Controller
         // ]);
 
         throw ValidationException::withMessages([
-            'email' => ['The provided credentials are incorrect'],
+            'email' => ['ログインに失敗しました'],
         ]);
     }
 
